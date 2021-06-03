@@ -11,12 +11,13 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('search')" :active="request()->routeIs('search')">
-                        {{ __('Reserver un vehicule') }}
-                    </x-nav-link>
-                </div>
                 @if ( Auth::user()->type === 'user')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('search')" :active="request()->routeIs('search')">
+                            {{ __('Reserver un vehicule') }}
+                        </x-nav-link>
+                    </div>
+
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('reservations')">
                             {{ __('Mes reservations') }}
@@ -28,6 +29,11 @@
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('vehicules')">
                             {{ __('Vehicules') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('configuration')" :active="request()->routeIs('configuration')">
+                            {{ __('Configuration') }}
                         </x-nav-link>
                     </div>
                 @endif

@@ -15,6 +15,7 @@ class CreateVehiculesTable extends Migration
     {
         Schema::create('vehicules', function (Blueprint $table) {
             $table->id('id_vehicule');
+            $table->string('nb_serie');
             $table->string('nom');
             $table->float('tarif');
             $table->integer('annee');

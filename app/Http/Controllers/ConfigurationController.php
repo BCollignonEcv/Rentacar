@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Reservation;
-
-class ReservationController extends Controller
+class ConfigurationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +13,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::paginate(24);
-        return view('reservations', ['reservations' => $reservations]);
+        //
     }
 
     /**
@@ -37,16 +34,7 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        $reservation = new Reservation();
-        $reservation->id_vehicule = $request->id_vehicule;
-        $reservation->id_client = $request->id_client;
-        $reservation->id_controleAvant = $request->id_controleAvant;
-        $reservation->id_controleApres = $request->id_controleApres;
-        $reservation->id_contrat = $request->id_contrat;
-        $reservation->id_vehicule = $request->id_vehicule;
-        $reservation->save();
-        
-        return redirect()->route('reservations');
+        //
     }
 
     /**
@@ -57,8 +45,7 @@ class ReservationController extends Controller
      */
     public function show($id)
     {
-        $reservation = Reservation::find($id);
-        return view('reservation', ['reservation' => $reservation]);
+        //
     }
 
     /**

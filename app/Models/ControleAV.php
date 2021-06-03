@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TypeBoite extends Model
+class ControleAV extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'id_typeBoite';
-
+    protected $table = 'controle_avs';
+    protected $primaryKey = 'id_controleAV';
 
 }

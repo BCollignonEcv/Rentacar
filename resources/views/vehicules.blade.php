@@ -8,23 +8,25 @@
             </a>
     </x-slot>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <ul>
-                        @foreach ($data->vehicules as $vehicule)
-                            <li>
-                                <a href="/vehicule/{{ $vehicule->id_vehicule }}">
-                                    <img src="{{ $vehicule->img }}" alt="" srcset="">
-                                    <span>{{ $vehicule->nom }}</span>
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                    <br>
-                    {{ $data->vehicules->links() }}
-                </div>
-            </div>
+        <div class="max-w-7xl mx-auto grid grid-cols-3 gap-4">
+            @foreach ($data->vehicules as $vehicule)
+                <a href="/vehicule/{{ $vehicule->id_vehicule }}">
+                    <div class="col-span-4">
+                        <div class="col-span-4">
+                            <img src="{{ $vehicule->img }}" alt="" />
+                        </div>
+                        <div  class="flex">
+                            <div class="flex flex-wrap">
+                                <h1 class="flex-auto text-xl font-semibold">
+                                    {{ $vehicule->nom }}
+                                </h1>
+                            </div>
+                            <div class="flex items-baseline mt-4 mb-6">
+                        </div>
+                        
+                    </div>
+                </a>
+            @endforeach
         </div>
     </div>
 </x-app-layout>

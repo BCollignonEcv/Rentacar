@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use app\Models\TypeVehicule;
-use app\Models\TypeBoite;
-use app\Models\TypeCarburant;
-use app\Models\Marque;
+use App\Models\TypeVehicule;
+use App\Models\TypeBoite;
+use App\Models\TypeCarburant;
+use App\Models\Marque;
+use App\Models\ControleConformite;
+use App\Models\ControleAP;
 
 
 
@@ -38,5 +40,13 @@ class Vehicule extends Model
 
     public function marque(){
         return $this->hasOne(Marque::class, 'id_marque');
+    }
+
+    public function controleConformites(){
+        return $this->hasMany(ControleConformite::class, 'id_vehicule');
+    }
+
+    public function controleAP(){   
+        return $this->hasOne(ControleAP::class, 'id_vehicule')->latest();
     }
 }

@@ -9,6 +9,10 @@ use App\Models\TypeBoite;
 use App\Models\TypeCarburant;
 use App\Models\Marque;
 use App\Models\Vehicule;
+use App\Models\ControleConformite;
+use App\Models\ControleAV;
+use App\Models\ControleAP;
+
 
 
 class VehiculeController extends Controller
@@ -49,6 +53,7 @@ class VehiculeController extends Controller
     public function store(Request $request)
     {
         $vehicule = new Vehicule();
+        $vehicule->nb_serie = $request->nbSerie;
         $vehicule->nom = $request->nom;
         $vehicule->tarif = $request->tarif;
         $vehicule->annee = $request->annee;
@@ -73,8 +78,11 @@ class VehiculeController extends Controller
      */
     public function show($id)
     {
-        $vehicule = Vehicule::find($id);
-        return view('vehicule', ['vehicule' => $vehicule]);
+        $data = (object) array();
+        $data->vehicule = Vehicule::find($id);
+        $data->controleConformites = $data->vehicule->controleConformites;
+        $data->controleAP = $data->vehicule->controleAP;
+        return view('vehicule', ['data' => $data]);
     }
 
     /**
