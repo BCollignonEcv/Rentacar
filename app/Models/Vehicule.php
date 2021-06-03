@@ -43,7 +43,7 @@ class Vehicule extends Model
     }
 
     public function controleConformites(){
-        return $this->hasMany(ControleConformite::class, 'id_vehicule');
+        return $this->hasMany(ControleConformite::class, 'id_vehicule')->orderBy('id_controleConformite', 'desc');
     }
 
     public function controleAP(){   

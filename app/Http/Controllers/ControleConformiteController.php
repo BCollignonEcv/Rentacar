@@ -63,12 +63,11 @@ class ControleConformiteController extends Controller
         $controleConformite->etat_feu = $request->etatFeu;
         array_push($grade, $controleConformite->etat_feu);
 
-        dd($grade);
         // Set global statut of controle
-        $controleConformite->statut->getStatut($grade);
+        $controleConformite->statut = ControleConformite::getStatut($grade);
 
         $controleConformite->save();
-        return redirect()->route('vehicule', ['id', $controleConformite->id_vehicule]);
+        return redirect()->route('showVehicule', ['id' => $controleConformite->id_vehicule]);
     }
 
     /**
@@ -114,22 +113,5 @@ class ControleConformiteController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Return globale statut of vehicule.
-     *
-     * @param  Array $attrs
-     * @return Boolean
-     */
-    private function getStatut($attrs){
-        $n = 0;
-        $sum = 0;
-        foreach ($attrs as $k => $v) {
-            $n++;
-            $sum += $v;
-        }
-        $statut = $sum / $n;
-        return $statut > 5;
     }
 }

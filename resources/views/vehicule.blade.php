@@ -46,6 +46,7 @@
                             <b>Age minimum légal : </b>{{ $data->vehicule->age_minimum }}
                         </p>
                     </div>
+                    @if ( Auth::user()->type === 'admin')
                     <div>
                         <div class="w-1/2 text-right">
                             <a href="{{ route('createControleConformite', ['id_vehicule' => $data->vehicule->id_vehicule]) }}" class="text-blue-900 text-xl"><small>Ajouter un controle de conformité</small></a>
@@ -55,8 +56,16 @@
                             @foreach ($data->controleConformites as $controleConformite)
                                 <a href="">
                                     <p class="text-sm text-gray-500">
-                                        <b>
-                                        {{ $controleConformite->statut }}
+                                        {{ $controleConformite->created_at }} -> 
+                                        @if ($controleConformite->statut === 1)
+                                            <b style="color: green">
+                                                Ok
+                                            </b>
+                                        @else
+                                            <b style="color: red">
+                                                Not OK
+                                            </b>
+                                        @endif<b>
                                         </b>
                                     </p>
                                 </a>
@@ -173,6 +182,9 @@
                             </p>
                         @endif
                     </div>
+                    @else
+                        @include('form/formReservation')
+                    @endif
                 </div>
             </div>
         </div>

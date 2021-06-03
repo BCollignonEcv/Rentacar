@@ -58,7 +58,7 @@ Route::get('/controleConformite/{id}', [ControleConformiteController::class, 'in
 /**************** Reservations ******************/
 Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations');
 Route::get('/reservations/{îd}', [ReservationController::class, 'index'])->name('userReservations');
-Route::get('/reservation', [ReservationController::class, 'index'])->name('storeReservation');
+Route::post('/reservation', [ReservationController::class, 'store'])->name('storeReservation');
 Route::get('/reservation/{îd}', [ReservationController::class, 'index'])->name('showReservation');
 
 /**************** Configuration ******************/

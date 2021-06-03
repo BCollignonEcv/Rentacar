@@ -19,6 +19,12 @@
                     </div>
 
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('vehicules')">
+                            {{ __('Tous les vehicules') }}
+                        </x-nav-link>
+                    </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('reservations')">
                             {{ __('Mes reservations') }}
                         </x-nav-link>
