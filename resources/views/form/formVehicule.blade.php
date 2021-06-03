@@ -14,34 +14,61 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <form method="POST" action="{{ route('storeVehicule') }}">
+            @if (isset($data->vehicule))
+                <form method="POST" action="{{ route('updateVehicule', ['id' => $data->vehicule->id_vehicule] ) }}">
+            @else
+                <form method="POST" action="{{ route('storeVehicule') }}">
+            @endif
+            @if (isset($data->vehicule->id_vehicule))
+                <x-input id="id_vehicule" class="block mt-1 w-full" type="hidden" name="id_vehicule" value="{{ $data->vehicule->id_vehicule}}" />
+            @endif
             @csrf
             <div class="grid grid-cols-3 gap-4">
                 <!-- Numéro de serie -->
                 <div class="mt-4 col-span-3">
                     <x-label for="nbSerie" :value="__('Numéro de serie')" />
-                    <x-input id="nbSerie" class="block mt-1 w-full" type="text" name="nbSerie" :value="old('nbSerie')" required />
+                    @if (isset($data->vehicule->nb_serie))
+                        <x-input id="nbSerie" class="block mt-1 w-full" type="text" name="nbSerie" value="{{ $data->vehicule->nb_serie }}" required />
+                    @else
+                        <x-input id="nbSerie" class="block mt-1 w-full" type="text" name="nbSerie" required />
+                    @endif
                 </div>
                 <!-- Nom -->
                 <div class="mt-4">
                     <x-label for="nom" :value="__('Nom')" />
-                    <x-input id="nom" class="block mt-1 w-full" type="text" name="nom" :value="old('nom')" required autofocus />
+                    @if (isset($data->vehicule->nb_serie))
+                        <x-input id="nom" class="block mt-1 w-full" type="text" name="nom" value="{{ $data->vehicule->nom }}" required />
+                    @else
+                        <x-input id="nom" class="block mt-1 w-full" type="text" name="nom" required />
+                    @endif
                 </div> 
 
                 <!-- Tarif journalier-->
                 <div class="mt-4">
                     <x-label for="tarif" :value="__('Tarif journalier')" />
-                    <x-input id="tarif" class="block mt-1 w-full" type="number" name="tarif" :value="old('tarif')" min="1" required />
+                    @if (isset($data->vehicule->nb_serie))
+                        <x-input id="tarif" class="block mt-1 w-full" type="number" name="tarif" min="1" value="{{ $data->vehicule->tarif }}" required />
+                    @else
+                        <x-input id="tarif" class="block mt-1 w-full" type="number" name="tarif" min="1" required />
+                    @endif
                 </div>
                 <!-- Annee -->
                 <div class="mt-4">
                     <x-label for="annee" :value="__('Année')" />
-                    <x-input id="annee" class="block mt-1 w-full" type="text" name="annee" :value="old('annee')"  min="1960" max="2021" value="2021" required />
+                    @if (isset($data->vehicule->annee))
+                        <x-input id="annee" class="block mt-1 w-full" type="number" name="annee" min="1" value="{{ $data->vehicule->annee }}" min="1960" max="2021" value="2021" required />
+                    @else
+                        <x-input id="annee" class="block mt-1 w-full" type="number" name="annee" :value="old('annee')"  min="1960" max="2021" value="2021" required />
+                    @endif
                 </div>
                 <!-- Nombre de place -->
                 <div class="mt-4">
                     <x-label for="nbPlace" :value="__('Nombre de place')" />
-                    <x-input id="nbPlace" class="block mt-1 w-full" type="text" name="nbPlace" :value="old('nbPlace')" required />
+                    @if (isset($data->vehicule->annee))
+                        <x-input id="nbPlace" class="block mt-1 w-full" type="number" name="nbPlace" min="1" value="{{ $data->vehicule->nb_place }}" min="1" required />
+                    @else
+                        <x-input id="nbPlace" class="block mt-1 w-full" type="number" name="nbPlace"  min="1" required/>
+                    @endif
                 </div>
                 @if (isset($data->marques))
                 <!-- Type de vehicule -->
@@ -50,7 +77,11 @@
                         <select name="marque" id="marque" class="block mt-1 w-full">
                             <option value="" disabled selected>Selectionner...</option>
                                 @foreach ($data->marques as $marque)
-                                    <option value="{{ $marque->id_marque }}">{{ $marque->nom_marque }}</option>
+                                    @if (isset($data->vehicule->id_marque) && $data->vehicule->id_marque === $marque->id_marque)
+                                        <option value="{{ $marque->id_marque }}" selected>{{ $marque->nom_marque }}</option>
+                                    @else
+                                        <option value="{{ $marque->id_marque }}">{{ $marque->nom_marque }}</option>
+                                    @endif
                                 @endforeach
                         </select>
                     </div>
@@ -64,7 +95,11 @@
                         <select name="typeVehicule" id="typeVehicule" class="block mt-1 w-full">
                             <option value="" disabled selected>Selectionner...</option>
                             @foreach ($data->typeVehicules as $typeVehicule)
-                                <option value="{{ $typeVehicule->id_typeVehicule }}">{{ $typeVehicule->nom_typeVehicule }}</option>
+                                @if (isset($data->vehicule->id_typeVehicule) && $data->vehicule->id_typeVehicule === $typeVehicule->id_typeVehicule)
+                                    <option value="{{ $typeVehicule->id_typeVehicule }}" selected>{{ $typeVehicule->nom_typeVehicule }}</option>
+                                @else
+                                    <option value="{{ $typeVehicule->id_typeVehicule }}">{{ $typeVehicule->nom_typeVehicule }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -78,7 +113,11 @@
                         <select name="typeBoite" id="typeBoite" class="block mt-1 w-full">
                             <option value="" disabled selected>Selectionner...</option>
                             @foreach ($data->typeBoites as $typeBoite)
-                                <option value="{{ $typeBoite->id_typeBoite }}">{{ $typeBoite->nom_typeBoite }}</option>
+                                @if (isset($data->vehicule->id_typeBoite) && $data->vehicule->id_typeBoite === $typeBoite->id_typeBoite)
+                                    <option value="{{ $typeBoite->id_typeBoite }}" selected>{{ $typeBoite->nom_typeBoite }}</option>
+                                @else
+                                    <option value="{{ $typeBoite->id_typeBoite }}">{{ $typeBoite->nom_typeBoite }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -91,7 +130,11 @@
                         <select name="typeCarburant" id="typeCarburant" class="block mt-1 w-full">
                             <option value="" disabled selected>Selectionner...</option>
                             @foreach ($data->typeCarburants as $typeCarburant)
-                                <option value="{{ $typeCarburant->id_typeCarburant }}">{{ $typeCarburant->nom_typeCarburant }}</option>
+                                @if (isset($data->vehicule->id_typeCarburant) && $data->vehicule->id_typeCarburant === $typeCarburant->id_typeCarburant)
+                                    <option value="{{ $typeCarburant->id_typeCarburant }}" selected>{{ $typeCarburant->nom_typeCarburant }}</option>
+                                @else
+                                    <option value="{{ $typeCarburant->id_typeCarburant }}">{{ $typeCarburant->nom_typeCarburant }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -99,13 +142,21 @@
                     <!-- Age minimum legal -->
                     <div class="mt-4">
                         <x-label for="age_minimum" :value="__('Age minimum légale')" />
-                        <x-input id="age_minimum" class="block mt-1 w-full" type="text" name="age_minimum" :value="old('age_minimum')" min="18" required />
+                        @if (isset($data->vehicule->annee))
+                            <x-input id="age_minimum" class="block mt-1 w-full" type="number" name="age_minimum" value="{{ $data->vehicule->age_minimum }}" min="18" required />
+                        @else
+                            <x-input id="age_minimum" class="block mt-1 w-full" type="number" name="age_minimum" min="18" required />
+                        @endif
                     </div>
 
                     <!-- Image du vehicule -->
                     <div class="mt-4 col-span-3">
                         <x-label for="img" :value="__('Image du vehicule')" />
-                        <x-input id="img" class="block mt-1 w-full" type="text" name="img" :value="old('img')" required placeholder="Veuillez renseigner le lien d'une image"/>
+                        @if (isset($data->vehicule->annee))
+                            <x-input id="img" class="block mt-1 w-full" type="text" name="img" value="{{ $data->vehicule->img }}" required placeholder="Veuillez renseigner le lien d'une image"/>
+                        @else
+                            <x-input id="img" class="block mt-1 w-full" type="text" name="img" required placeholder="Veuillez renseigner le lien d'une image"/>
+                        @endif
                     </div>
                 </div>
 

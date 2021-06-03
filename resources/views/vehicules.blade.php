@@ -3,9 +3,11 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Vehicules') }}
         </h2>
-        <a href="{{ route('createVehicule') }}">
+        @if ( Auth::user()->type === 'admin')
+            <a href="{{ route('createVehicule') }}">
                 <button>Ajouter un vehicule</button>
             </a>
+        @endif
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto grid grid-cols-3 gap-4">

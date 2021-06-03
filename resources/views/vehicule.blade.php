@@ -31,16 +31,16 @@
                             <b>Nombre de place : </b>{{ $data->vehicule->nb_place }}
                         </p>
                         <p class="text-sm text-gray-500">
-                            <b>Marque du véhicule : </b>{{ $data->vehicule->marque->nom }}
+                            <b>Marque du véhicule : </b>{{ $data->vehicule->marque->nom_marque }}
                         </p>
                         <p class="text-sm text-gray-500">
-                            <b>Type de véhicule : </b>{{ $data->vehicule->typeVehicule->nom }}
+                            <b>Type de véhicule : </b>{{ $data->vehicule->typeVehicule->nom_typeVehicule }}
                         </p>
                         <p class="text-sm text-gray-500">
-                            <b>Type de boite de vitesse : </b>{{ $data->vehicule->typeBoite->nom }}
+                            <b>Type de boite de vitesse : </b>{{ $data->vehicule->typeBoite->nom_typeBoite }}
                         </p>
                         <p class="text-sm text-gray-500">
-                            <b>Type de carburant : </b>{{ $data->vehicule->typeCarburant->nom }}
+                            <b>Type de carburant : </b>{{ $data->vehicule->typeCarburant->nom_typeCarburant }}
                         </p>
                         <p class="text-sm text-gray-500">
                             <b>Age minimum légal : </b>{{ $data->vehicule->age_minimum }}
@@ -49,7 +49,7 @@
                     @if ( Auth::user()->type === 'admin')
                     <div>
                         <div class="w-1/2 text-right">
-                            <a href="{{ route('createControleConformite', ['id_vehicule' => $data->vehicule->id_vehicule]) }}" class="text-blue-900 text-xl"><small>Ajouter un controle de conformité</small></a>
+                            <a href="{{ route('createControleConformite', ['id_vehicule' => $data->vehicule->id_vehicule]) }}" style="background-color: #1c959e; padding: 8px 16px; border-radius: 8px;"><small>Ajouter un controle de conformité</small></a>
                         </div>
                         <h5>Dernier controle de conformité</h5>
                         @if (isset($data->controleConformites))
@@ -182,6 +182,8 @@
                             </p>
                         @endif
                     </div>
+                    <a href="/vehicule/edit/{{ $data->vehicule->id_vehicule }}" style="background-color: #1c959e; padding: 8px 16px; border-radius: 8px;">Modifier</a>
+                    <a href="/vehicule/delete/{{ $data->vehicule->id_vehicule }}" style="background-color: #1c959e; padding: 8px 16px; border-radius: 8px;">Supprimer</a>
                     @else
                         @include('form/formReservation')
                     @endif

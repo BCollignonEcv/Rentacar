@@ -45,8 +45,15 @@ Route::get('/search', function () {
 
 Route::get('/vehicules', [VehiculeController::class, 'index'])->name('vehicules');
 Route::get('/vehicule', [VehiculeController::class, 'create'])->name('createVehicule');
-Route::post('/vehicule', [VehiculeController::class, 'store'])->name('storeVehicule');
 Route::get('/vehicule/{id}', [VehiculeController::class, 'show'])->name('showVehicule');
+Route::get('/vehicule/edit/{id}', [VehiculeController::class, 'edit'])->name('editVehicule');
+Route::get('/vehicule/delete/{id}', [VehiculeController::class, 'destroy'])->name('deleteVehicule');
+
+Route::post('/vehicules/search', [VehiculeController::class, 'indexSearch'])->name('searchVehicules');
+Route::post('/vehicule/create', [VehiculeController::class, 'store'])->name('storeVehicule');
+Route::post('/vehicule/update/{id}', [VehiculeController::class, 'update'])->name('updateVehicule');
+
+
 
 
 /**************** Controles ******************/
@@ -57,7 +64,7 @@ Route::get('/controleConformite/{id}', [ControleConformiteController::class, 'in
 
 /**************** Reservations ******************/
 Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations');
-Route::get('/reservations/{îd}', [ReservationController::class, 'index'])->name('userReservations');
+Route::get('/reservations/{id}', [ReservationController::class, 'userIndex'])->name('userReservations');
 Route::post('/reservation', [ReservationController::class, 'store'])->name('storeReservation');
 Route::get('/reservation/{îd}', [ReservationController::class, 'index'])->name('showReservation');
 

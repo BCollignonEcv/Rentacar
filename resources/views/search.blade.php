@@ -9,38 +9,46 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div>
                 <div>
-                    <form action="vehicules" method="get">
+                    <form action="{{ route('searchVehicules') }}" method="post">
                     @csrf
                         @if (isset($data->typeVehicules))
-                            <select name="" id="">
+                            <select name="typeVehicule" id="">
                                 <option value="">Type de voiture</option>
                                     @foreach ($data->typeVehicules as $typeVehicule)
-                                        <option value="{{ $typeVehicule->id }}">{{ $typeVehicule->nom_typeVehicule }}</option>
-                                    @endforeach                            
+                                        <option value="{{ $typeVehicule->id_typeVehicule }}">{{ $typeVehicule->nom_typeVehicule }}</option>
+                                    @endforeach
                             </select>
                         @endif
                         @if (isset($data->typeBoites))
-                            <select name="" id="">
-                                <option value="">Type de voiture</option>
+                            <select name="typeBoite" id="">
+                                <option value="">Type de boite de vitesse</option>
                                     @foreach ($data->typeBoites as $typeBoite)
-                                        <option value="{{ $typeBoite->id }}">{{ $typeBoite->nom_typeBoite }}</option>
-                                    @endforeach                            
+                                        <option value="{{ $typeBoite->id_typeBoite }}">{{ $typeBoite->nom_typeBoite }}</option>
+                                    @endforeach
                             </select>
                         @endif
                         @if (isset($data->typeCarburants))
-                            <select name="" id="">
-                                <option value="">Type de voiture</option>
+                            <select name="typeCarburant" id="">
+                                <option value="">Type de carburant</option>
                                     @foreach ($data->typeCarburants as $typeCarburant)
-                                        <option value="{{ $typeCarburant->id }}">{{ $typeCarburant->nom_typeCarburant }}</option>
-                                    @endforeach                            
+                                        <option value="{{ $typeCarburant->id_typeCarburant }}">{{ $typeCarburant->nom_typeCarburant }}</option>
+                                    @endforeach
                             </select>
                         @endif
-                        <br>
-                        <label for="min_nbPlace">Nombre de place minimum :</label>
-                        <input type="number" id="min_nbPlace" name="min_nbPlace" min="1" max="24" value="1">                        
-                        <br>
-                        <br>
-                        <input type="submit" value="Rechercher">
+                        <label for="nbPlace">Nombre de place minimum :</label>
+                        <input type="number" id="nbPlace" name="nbPlace" min="1" max="24" value="1">
+                        <!-- Date de début de reservation -->
+                        <!-- <div class="mt-4 col-span-2">
+                            <x-label for="dateBegin" :value="__('Date de début de reservation')" />
+                            <x-input id="dateBegin" class="block mt-1 w-full" type="date" name="dateBegin" :value="old('dateBegin')" min="Date()" required/>
+                        </div> -->
+                        <!-- Date de fin de reservation -->
+                        <!-- <div class="mt-4 col-span-2">
+                            <x-label for="dateEnd" :value="__('Date de fin de reservation')" />
+                            <x-input id="dateEnd" class="block mt-1 w-full" type="date" name="dateEnd" :value="old('dateEnd')" min="Date()" required />
+                        </div> -->
+
+                        <input style="background-color: #1c959e; padding: 8px 16px; border-radius: 8px;" type="submit" value="Rechercher">
                     </form>
                 </div>
             </div>

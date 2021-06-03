@@ -15,8 +15,35 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $reservations = Reservation::paginate(24);
-        return view('reservations', ['reservations' => $reservations]);
+        $data = (object) array();
+        $reservations = Reservation::all();
+        foreach($reservations as $reservation){
+            if($reservation->date_begin > date('Y-m-d')){
+                $data->incomingReservations[] = $reservation;
+            }else{
+                $data->pastedReservations[] = $reservation;
+            }
+        }
+        return view('reservations', ['data' => $data]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function userIndex($id)
+    {
+        $data = (object) array();
+        $reservations = Reservation::where('id_client', $id)->get();
+        foreach($reservations as $reservation){
+            if($reservation->date_begin > date('Y-m-d')){
+                $data->incomingReservations[] = $reservation;
+            }else{
+                $data->pastedReservations[] = $reservation;
+            }
+        }
+        return view('reservations', ['data' => $data]);
     }
 
     /**
@@ -40,13 +67,11 @@ class ReservationController extends Controller
         $reservation = new Reservation();
         $reservation->id_vehicule = $request->id_vehicule;
         $reservation->id_client = $request->id_client;
-        $reservation->id_controleAvant = $request->id_controleAvant;
-        $reservation->id_controleApres = $request->id_controleApres;
-        $reservation->id_contrat = $request->id_contrat;
-        $reservation->id_vehicule = $request->id_vehicule;
+        $reservation->date_begin = $request->dateBegin;
+        $reservation->date_end = $request->dateEnd;
         $reservation->save();
         
-        return redirect()->route('reservations');
+        return redirect()->route('vehicules');
     }
 
     /**
